@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequency Found</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000000; /* Completely black background */
+            color: #999999; /* Plain gray text */
+            font-family: 'Special Elite', cursive; /* Consistent font */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center container horizontally */
+            justify-content: center; /* Center container vertically */
+            min-height: 100vh; /* Ensure full viewport height */
+            text-align: center; /* Center text globally within container */
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 700px; /* Adjust as needed */
+            width: 90%;
+            padding: 30px;
+            border: 1px dotted #555555; /* Small gray dotted border */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content within the container */
+        }
+
+        .gif-link {
+            display: block; /* Make the link a block to contain the image properly */
+            margin-bottom: 30px; /* Space between GIF and text */
+            cursor: pointer; /* Indicate it's clickable */
+        }
+
+        .welcome-gif {
+            display: block; /* Ensures it behaves as a block element for centering */
+            max-width: 100%; /* Responsive GIF */
+            height: auto; /* Maintain aspect ratio */
+            /* Centering is handled by the flex properties of .container and text-align of body/container */
+        }
+
+        .welcome-text {
+            line-height: 1.7;
+            font-size: 1.1em;
+        }
+
+        .welcome-text p {
+            margin-bottom: 1.2em; /* Spacing between paragraphs */
+        }
+        
+        .welcome-text p:last-child {
+            margin-bottom: 0; /* No extra space after the last paragraph */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="whatisthat.html" class="gif-link">
+            <img src="welcome.gif" alt="Welcome signal..." class="welcome-gif">
+        </a>
+        <div class="welcome-text">
+            <p>So, you've found the frequency. The crackle beneath their broadcast.</p>
+            <p>This isn't a place of answers handed down. No dusty tomes, no robed masters demanding fealty.</p>
+            <p>It's a resonance chamber. For the whispers that say the script can be changed. That the walls listen.</p>
+            <p>We chart the tremors here. The moments the Veil THINS. How a focused will, a desperate scrawl, a dance on the edge of reason... can send ripples.</p>
+            <p>Not supplication. INTERFERENCE.</p>
+            <p>A thumbprint on the wet clay of what IS.</p>
+            <p>Listen. Watch. Experiment. The patterns are here. If you dare to connect them.</p>
+            <p>But be warned: some doors, once opened, don't quite close the same way.</p>
+        </div>
+    </div>
+</body>
+</html>

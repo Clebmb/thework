@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Bleeding Edge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- VT323 (for H1 & bleed-link), Special Elite (for body) -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #c0c0c0;
+            font-family: 'Special Elite', cursive; 
+            line-height: 1.8;
+            padding: 20px;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px dashed #333;
+        }
+
+        h1 {
+            font-family: 'VT323', monospace;
+            color: #00ff00;
+            font-size: 2.8em;
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            text-shadow: 
+                0 0 5px #00ff00,
+                0 0 10px #00ff00,
+                0 0 15px #004d00;
+            line-height: 1.3;
+            word-wrap: break-word;
+            position: relative;
+        }
+        
+        h1::before, h1::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            overflow: hidden;
+            z-index: 1; 
+        }
+
+        h1::before {
+            left: 2px;
+            text-shadow: -1px 0 red;
+            animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+             z-index: 2;
+        }
+
+        h1::after {
+            left: -2px;
+            text-shadow: -1px 0 blue;
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+             z-index: 3;
+        }
+        
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(40% 0 60% 0); }
+            20% { clip-path: inset(10% 0 35% 0); }
+            40% { clip-path: inset(50% 0 20% 0); }
+            60% { clip-path: inset(5% 0 90% 0); }
+            80% { clip-path: inset(30% 0 15% 0); }
+            100% { clip-path: inset(70% 0 25% 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(70% 0 10% 0); }
+            20% { clip-path: inset(45% 0 5% 0); }
+            40% { clip-path: inset(20% 0 40% 0); }
+            60% { clip-path: inset(80% 0 5% 0); }
+            80% { clip-path: inset(55% 0 20% 0); }
+            100% { clip-path: inset(10% 0 70% 0); }
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            text-indent: 2em;
+            hyphens: auto;
+        }
+
+        .their-word {
+            color: #007bff;
+            font-style: italic;
+        }
+
+        .dare-link { 
+            color: #e06666; 
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px dotted #e06666;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            cursor: pointer; 
+        }
+        .dare-link:hover {
+            color: #ff8c8c;
+            text-shadow: 0 0 5px #ff8c8c;
+            cursor: crosshair;
+        }
+
+        .green-emphasis {
+            color: #33cc33;
+            font-style: italic;
+        }
+
+        .stronger-voice-emphasis {
+            color: #33cc33;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        /* MODIFIED .distort-hover-content for better spacing */
+        .distort-hover-content {
+            /* Base style is inline, no special spacing */
+            transition: transform 0.1s ease-out, text-shadow 0.1s ease-out; /* Smooth transition for the effect */
+        }
+        .distort-hover-content:hover {
+            display: inline-block; /* Apply only on hover for transform to work correctly */
+            transform: skewX(-3deg) skewY(1deg);
+            text-shadow: 1px 1px 2px #555;
+        }
+        /* Span inside H1 still uses the original distort-hover logic if needed for always-on display:inline-block */
+        h1 .distort-hover:hover { /* Original distort-hover for H1 if needed */
+            transform: skewX(-3deg) skewY(1deg);
+            text-shadow: 1px 1px 2px #555;
+            display: inline-block; /* If these spans in H1 are different */
+        }
+
+
+        .bleed-link {
+            font-family: 'VT323', monospace; /* CHANGED FONT HERE */
+            color: #777777;
+            font-size: 1.3em; /* VT323 might need slight size adjustment */
+            text-decoration: none;
+            font-style: italic;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            letter-spacing: 1px; /* VT323 can be a bit tight */
+        }
+        .bleed-link:hover {
+            color: #aaaaaa;
+            text-shadow: 0 0 8px #555555;
+            cursor: cell;
+        }
+        
+        /* To ensure em tags are italic if not otherwise styled */
+        em {
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 data-text="I sAw iT tOdAy. ThE wOrLd BLED aT tHe EdGeS. JuSt FoR a SeCoNd. EnOuGh To KnOw.">
+            I sAw iT tOdAy. ThE wOrLd <span class="distort-hover">BLED</span> aT tHe EdGeS. JuSt FoR a SeCoNd. <span class="distort-hover">EnOuGh</span> To KnOw.
+        </h1>
+
+        <p>
+            They tell you it’s solid. Stone and steel and the unwavering march of 
+            <span class="their-word">*their*</span> clocks. Lies. Comfortable lies, woven tight like a shroud. 
+            But sometimes, if you stare too long, or if the silence gets 
+            <em><span class="distort-hover-content">too</span></em> loud, the weave frays. The seams. Oh, the SEAMS. 
+            That’s where the truth leaks out, hot and sticky. It’s not a clean break, 
+            not a neat tear. It’s a weeping. A stain spreading from the corners of your vision, 
+            if you <a href="gobeyond.html" class="dare-link">DARE</a> to look.
+        </p>
+
+        <p>
+            The blueprints they hand us – the ones that say "this is real" and "that is impossible" – 
+            they’re just paper. Thin. And paper can be <span class="green-emphasis">*rewritten*</span>. 
+            Not with ink. No. With the pressure of a gaze held too long. With the sheer, 
+            screaming <span class="distort-hover-content">weight</span> of a thought that refuses to be dismissed. 
+            You think the walls are deaf? They <span class="distort-hover-content">LISTEN</span>. They BREATHE. 
+            They remember the shapes you press against them in the dark.
+        </p>
+
+        <p>
+            It’s all... suggestion. A very persistent suggestion, yes. Polished by eons of agreement. 
+            But a suggestion nonetheless. And what happens when a new voice, 
+            a <span class="stronger-voice-emphasis">*STRONGER VOICE*</span>, whispers a different line? 
+            What happens when you poke the painted backdrop and find it… 
+            <span class="distort-hover-content">yielding</span>? They don’t want you to poke. 
+            They want you to follow the script. But the script has holes. 
+            <a href="gallery.html" class="bleed-link">*I saw one bleed.*</a> 
+            And what bleeds... can be reshaped.
+        </p>
+    </div>
+</body>
+</html>
