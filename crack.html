@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Fissure...</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000000; /* Completely black background */
+            color: #999999; /* Default gray text */
+            font-family: 'Special Elite', cursive; /* Consistent font */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center container horizontally */
+            justify-content: center; /* Center container vertically */
+            min-height: 100vh; /* Ensure full viewport height */
+            text-align: center; /* Center content globally */
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 600px; /* Adjust as needed for image/text balance */
+            width: 90%;
+            padding: 30px;
+            border: 1px dotted #555555; /* Small gray dotted border */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content (image and text link) within the container */
+        }
+
+        .image-display {
+            display: block; /* Ensures it behaves as a block element for centering and margin */
+            max-width: 100%; /* Responsive image */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 30px; /* Space between image and text */
+        }
+
+        .question-text-link {
+            font-size: 1.8em; /* Larger, more prominent question */
+            color: #00ff00; /* Green text */
+            text-decoration: none; /* No underline */
+            transition: text-shadow 0.3s ease, color 0.3s ease;
+            cursor: pointer; /* Indicate it's clickable */
+        }
+
+        .question-text-link:hover {
+            color: #33ff33; /* Lighter green on hover */
+            text-shadow: 0 0 8px #00cc00; /* Green glow on hover */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Updated image source -->
+        <img src="crack.jpg" alt="A crack in something..." class="image-display">
+        
+        <!-- Updated text and link destination -->
+        <a href="beyondtheveil.html" class="question-text-link">
+            a crack?
+        </a>
+    </div>
+</body>
+</html>
