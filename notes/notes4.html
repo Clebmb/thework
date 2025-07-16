@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes on a Non-System</title>
+    <style>
+        body {
+            background-image: url('../background.gif');
+            color: #00ff00;
+            font-family: "Courier New", Courier, monospace;
+            text-align: center;
+        }
+        .main-content {
+            background-color: rgba(0, 0, 0, 0.75);
+            width: 480px;
+            margin: 20px auto;
+            padding: 15px;
+            border: 3px inset #888;
+            box-shadow: 0 0 15px #000;
+        }
+        /* Style for the home/next links */
+        .nav-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-decoration: none;
+            color: #00ff00;
+        }
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px #ff00ff, 0 0 10px #00ff00;
+            white-space: nowrap;
+        }
+        .blinking-text {
+            animation: blinker 1s linear infinite;
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+        #notes-png {
+            display: block;
+            margin: 15px auto;
+            max-width: 60%;
+        }
+
+        /* Style for the red text */
+        .red-heading {
+            color: #ff0000;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 25px 0;
+            text-shadow: 0 0 5px #000;
+        }
+
+        /* Style for the paragraph content */
+        .prose-content {
+            text-align: left;
+            padding: 0 15px;
+            line-height: 1.6;
+        }
+        .prose-content p {
+            margin-bottom: 1em;
+        }
+
+        .footer-content {
+            margin-top: 40px;
+            font-size: 12px;
+        }
+        .donate-section {
+            margin-top: 25px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-content">
+        <!-- Home link -->
+        <a href="../index.html" class="nav-link">[ HOME ]</a>
+
+        <!-- Page-specific image -->
+        <img id="notes-png" src="../notes2.png" alt="Notes">
+        
+        <!-- [MODIFIED] Red heading -->
+        <p class="red-heading">I saw it today, listened to it. Just for a second. Enough to know.</p>
+
+        <!-- [MODIFIED] Paragraph content -->
+        <div class="prose-content">
+            <p>They tell you it’s solid. Stone and steel and the unwavering march of *their* clocks. Lies. Comfortable lies, woven tight like a shroud. But sometimes, if you stare too long, or if the silence gets too loud, the weave frays. The seams. That’s where the truth leaks out, hot and sticky. It’s not a clean break, not a neat tear. It’s a weeping. A stain spreading from the corners of your vision, if you decide to look.</p>
+            <p>The blueprints they hand us – the ones that say "this is real" and "that is impossible" – they’re just paper. Thin. And paper can be rewritten. Not with ink. No. With the pressure of a gaze held too long. With the sheer, screaming weight of a thought that refuses to be dismissed. You think the walls are deaf? They LISTEN. They BREATHE. They remember the shapes you press against them in the dark.</p>
+            <p>It’s all... suggestion. A very persistent suggestion, yes. Polished by eons of agreement. But a suggestion nonetheless. And what happens when a new voice, a STRONGER VOICE, whispers a different line? What happens when you poke the painted backdrop and find it… yielding? They don’t want you to poke. They want you to follow the script. But the script has holes. *I saw one bleed.* And what bleeds... can be reshaped. </p>
+        </div>
+        
+        <!-- [MODIFIED] Next link -->
+        <a href="notes5.html" class="nav-link" style="margin-top: 30px;">[ NEXT ]</a>
+
+    </div>
+
+    <div class="footer-content">
+        <img src="../construction.gif" alt="Under Construction"><br>
+        <img src="../eye.gif" alt="all seeing eye" height="40">
+    </div>
+
+    <div class="donate-section">
+        <img src="../donate.gif" alt="Donate">
+    </div>
+
+</body>
+</html>

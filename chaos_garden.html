@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expansive L-System Garden (32 Seeds) - House of Cleb</title>
+    <style>
+        /* ... (styles remain the same) ... */
+        body {
+            background-image: url('background.gif');
+            color: #00ff00;
+            font-family: "Courier New", Courier, monospace;
+            text-align: center;
+            padding-bottom: 50px; 
+        }
+        .main-content {
+            background-color: rgba(0, 0, 0, 0.75);
+            width: 480px;
+            margin: 20px auto;
+            padding: 15px;
+            border: 3px inset #888;
+            box-shadow: 0 0 15px #000;
+        }
+        h1 {
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px #ff00ff, 0 0 10px #00ff00;
+            white-space: nowrap;
+        }
+        .blinking-text {
+            animation: blinker 1s linear infinite;
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+        #houseofcleb-gif-link img { /* Style for the image inside the link */
+            display: block;
+            margin: 15px auto 0;
+            max-width: 40%;
+            border: none; /* Remove border if link adds one */
+        }
+        #houseofcleb-gif-link {
+            text-decoration: none; /* Remove underline from link */
+        }
+        .intro-text {
+            margin: 20px 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .garden-controls {
+            margin: 25px 0;
+            padding: 10px;
+            border: 1px dashed #00ff00;
+            background-color: rgba(0, 50, 0, 0.3);
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center;
+            align-items: center;
+        }
+        .garden-controls label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .garden-controls input[type="text"] {
+            background-color: #111;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 8px;
+            font-family: "Courier New", Courier, monospace;
+            width: 50%; 
+            margin-bottom: 10px; 
+        }
+        .garden-controls button {
+            background-color: #00cc00;
+            color: #000000;
+            border: 1px solid #00ff00;
+            padding: 8px 15px;
+            font-family: "Courier New", Courier, monospace;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-left: 10px;
+            font-weight: bold;
+            transition: background-color 0.2s, color 0.2s;
+            margin-bottom: 10px; 
+        }
+        .garden-controls button:hover {
+            background-color: #00ff00;
+            color: #111;
+            text-shadow: 0 0 5px #fff;
+        }
+        #reset-garden-button {
+            background-color: #cc0000; 
+            color: #ffffff;
+            border: 1px solid #ff3333;
+        }
+        #reset-garden-button:hover {
+            background-color: #ff0000;
+            color: #000;
+        }
+        #garden-canvas {
+            display: block;
+            margin: 20px auto;
+            border: 2px solid #00ff00;
+            background-color: #0a0a0a;
+            width: 440px;
+            height: 330px;
+        }
+        .back-link-container {
+            margin-top: 20px;
+        }
+        .back-link {
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ffff00;
+            text-shadow: 0 0 3px #000;
+            transition: all 0.2s;
+            padding: 5px 10px;
+            border: 1px solid transparent;
+        }
+        .back-link:hover {
+            text-shadow: 0 0 8px #fff, 0 0 5px #fff;
+            color: #fff;
+            border-color: #ffff00;
+            background-color: rgba(255, 255, 0, 0.1);
+        }
+        .footer-content {
+            margin-top: 40px;
+            font-size: 12px;
+        }
+        .donate-section {
+            margin-top: 25px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-content">
+        <!-- MODIFIED: Wrapped the image in an anchor tag -->
+        <a id="houseofcleb-gif-link" href="index.html">
+            <img id="houseofcleb-gif" src="houseofcleb.gif" alt="House of Cleb - Return to Main">
+        </a>
+        
+        <h1><span class="blinking-text">::</span> THE CHAOS GARDEN <span class="blinking-text">::</span></h1>
+        <img src="divider.gif" alt="divider" width="400">
+
+        <p class="intro-text">
+            Plant a seed of intent in the fertile aether-soil.<br>
+            A forest of up to 32 L-System thoughtforms may unfurl,<br>
+            each a unique animated reflection of its seed.
+        </p>
+
+        <div class="garden-controls">
+            <label for="seed-intent">Seed Your L-System:</label>
+            <input type="text" id="seed-intent" name="seed-intent" placeholder="e.g., myriad forms, chaotic bloom">
+            <button id="plant-seed-button">Plant Seed</button>
+            <button id="reset-garden-button">Reset Garden</button>
+        </div>
+
+        <canvas id="garden-canvas" width="440" height="330">
+            Your browser does not support the HTML5 canvas tag. The Chaos Garden cannot grow here.
+        </canvas>
+
+        <img src="divider.gif" alt="divider" width="400">
+
+        <div class="back-link-container">
+            <a class="back-link" href="index.html"><< Return to the House of Cleb >></a>
+        </div>
+    </div>
+
+    <div class="footer-content">
+        <img src="construction.gif" alt="Under Construction"><br>
+        <img src="eye.gif" alt="all seeing eye" height="40">
+    </div>
+
+    <div class="donate-section">
+        <img src="donate.gif" alt="Donate">
+    </div>
+
+    <script>
+        // JavaScript remains the same as the previous version (32 trees, reset button, etc.)
+        // ... (All the JavaScript from the previous "Expansive L-System (32 Seeds) V1" goes here) ...
+        console.log("Chaos Garden - Expansive L-System (32 Seeds) V1 Loaded - GIF Link Added");
+
+        const canvas = document.getElementById('garden-canvas');
+        const ctx = canvas ? canvas.getContext('2d') : null;
+        const plantButton = document.getElementById('plant-seed-button');
+        const resetButton = document.getElementById('reset-garden-button'); 
+        const seedInput = document.getElementById('seed-intent');
+
+        let initCheck = true;
+        if (!canvas) { console.error("FATAL: Canvas 'garden-canvas' NOT FOUND!"); initCheck = false; }
+        if (!ctx && canvas) { console.error("FATAL: Ctx failed for 'garden-canvas'!"); initCheck = false; }
+        if (!plantButton) { console.error("ERROR: Button 'plant-seed-button' NOT FOUND!"); }
+        if (!resetButton) { console.error("ERROR: Button 'reset-garden-button' NOT FOUND!"); }
+        if (!seedInput) { console.error("ERROR: Input 'seed-intent' NOT FOUND!"); }
+
+        let trees = [];
+        const MAX_TREES = 32; 
+        let globalAnimationFrameId = null;
+
+        const SEGMENTS_PER_FRAME = 2; 
+        const PARTICLE_LIFESPAN = 50; 
+        const MAX_PARTICLES_PER_TREE = 15; 
+        const SOIL_HEIGHT = 25; 
+        const SOIL_COLOR = "hsla(30, 30%, 12%, 0.9)"; 
+        const SOIL_GLOW_COLOR = "hsla(30, 35%, 20%, 0.3)";
+
+        function hsla(hslColorString, alpha) { 
+            if (!hslColorString || !hslColorString.startsWith('hsl(')) return `rgba(255,255,255,${alpha})`;
+            return hslColorString.replace('hsl(', 'hsla(').replace(')', `, ${alpha})`);
+        }
+
+        function processIntentForLSystem(intentString, currentTreeCount) {
+            let hash = 0;
+            intentString = String(intentString || "default_expansive_seed");
+            if (intentString.length === 0) intentString = "empty_expansive_seed";
+
+            for (let i = 0; i < intentString.length; i++) {
+                const char = intentString.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash |= 0;
+            }
+
+            let iterations;
+            if (currentTreeCount < 5) iterations = 3 + Math.abs((hash >> 7) % 2); 
+            else if (currentTreeCount < 15) iterations = 2 + Math.abs((hash >> 7) % 2); 
+            else iterations = 2; 
+
+            const angle = 20 + Math.abs(hash % 20); 
+            const availableHeight = canvas.height - SOIL_HEIGHT;
+            
+            const densityFactor = 1 + (currentTreeCount / MAX_TREES) * 1.5; 
+            const baseInitialLength = availableHeight / (Math.pow(iterations + 1, 1.3) * (2.5 * densityFactor)); 
+            const initialLength = Math.max(3, baseInitialLength + (Math.abs((hash >> 14) % 8) - 4));
+            
+            const lengthDecrementFactor = 0.45 + (Math.abs((hash >> 21) % 35)) / 100; 
+
+            let axiom, rules;
+            const ruleType = Math.abs(hash % 5); 
+            switch (ruleType) { 
+                case 0: axiom = "X"; rules = { 'X': "F-[[X]+X]+F[+FX]-X", 'F': "FF" }; if (iterations < 3 && currentTreeCount < 10) iterations = 3; break;
+                case 1: axiom = "X"; rules = { 'X': "F[+X]F[-XF[+XF]]+X", 'F': "FF" }; break;
+                case 2: axiom = "F"; rules = { 'F': "F[+FF]F[-F[+F]][FF]" }; if (iterations < 3 && currentTreeCount < 10) iterations = 3; break;
+                case 3: axiom = "X"; rules = { 'X': "F-[X+XF]F[+XF]-XF", 'F': "F[-F]F" }; break;
+                case 4: axiom = "F"; rules = { 'F': "FF-[-F+F+F]+[+F-F-F]" }; iterations = Math.max(2, iterations-1); break;
+                default: axiom = "X"; rules = { 'X': "F[-X][+X]FX", 'F': "FF" };
+            }
+            
+            const hue = Math.abs((hash >> 3) % 360);
+            const saturation = 55 + Math.abs((hash >> 10) % 35); 
+            const lightness = 40 + Math.abs((hash >> 18) % 30); 
+            const branchColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+            
+            const leafChance = 0.15 + (Math.abs((hash >> 5) % 20))/100;
+            const leafColorHue = (hue + 30 + Math.abs((hash >> 24) % 120)) % 360; 
+            const leafColor = `hsl(${leafColorHue}, ${65 + (Math.abs(hash>>1) % 35)}%, ${55 + (Math.abs(hash>>2) % 25)}%)`;
+
+            const glowBlur = 3 + Math.abs(hash % 7); 
+            const particleEmitChance = 0.05 + (Math.abs((hash>>4)%10))/100; 
+
+            const seedCoreLightness = 65 + Math.abs((hash >> 6) % 25);
+            const seedColor = `hsl(${hue}, ${saturation}%, ${seedCoreLightness}%)`;
+            const seedGlowColor = hsla(seedColor, 0.5);
+            const seedRadius = 1.5 + Math.abs((hash >> 1) % 20) / 10; 
+
+            return {
+                rawHash: hash, axiom, rules, iterations, angle, initialLength,
+                lengthDecrementFactor, branchColor, leafChance, leafColor, glowBlur, 
+                particleEmitChance, seedColor, seedGlowColor, seedRadius, originalIntent: intentString
+            };
+        }
+
+        class Particle { 
+            constructor(x, y, color) {
+                this.x = x; this.y = y;
+                this.size = Math.random() * 1.2 + 0.3; 
+                this.color = hsla(color, Math.random() * 0.4 + 0.2);
+                this.lifespan = PARTICLE_LIFESPAN + Math.random() * 15;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4 - 0.05;
+            }
+            update() { this.x += this.vx; this.y += this.vy; this.lifespan--; }
+            draw(mainCtx) {
+                if (!mainCtx || this.lifespan <= 0) return;
+                mainCtx.fillStyle = this.color;
+                mainCtx.beginPath(); mainCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2); mainCtx.fill();
+            }
+        }
+
+        class LSystemTree { 
+             constructor(startX, startY, params) {
+                this.startX = startX; this.startY = startY; this.params = params;
+                this.fullPathString = this.generateLSystemString();
+                this.drawingProgress = 0; this.isFullyGrown = false; this.particles = [];
+                this.turtle = { x: startX, y: startY, angle: -90, 
+                                length: params.initialLength, 
+                                lineWidth: Math.max(0.8, (8 / (params.iterations + 1))), 
+                                depth: 0 };
+                this.stack = [];
+                this.treeCanvas = document.createElement('canvas');
+                this.treeCanvas.width = canvas.width; this.treeCanvas.height = canvas.height;
+                this.treeCtx = this.treeCanvas.getContext('2d');
+                this.treeCtx.lineCap = 'round'; this.treeCtx.lineJoin = 'round';
+            }
+            generateLSystemString() { 
+                let currentString = this.params.axiom;
+                for (let i = 0; i < this.params.iterations; i++) {
+                    let nextString = "";
+                    for (const char of currentString) { nextString += this.params.rules[char] || char; }
+                    currentString = nextString;
+                }
+                currentString = currentString.replace(/F(?![\[\]\+\-FLX])/g, m => Math.random() < this.params.leafChance * (this.params.iterations/1.5) ? "FL" : m);
+                const maxLength = 10000 - (trees.length * 200); 
+                if (currentString.length > Math.max(1000,maxLength)) {
+                    currentString = currentString.substring(0, Math.max(1000,maxLength));
+                }
+                return currentString;
+            }
+            emitParticle(x,y,color){ if(this.particles.length<MAX_PARTICLES_PER_TREE && Math.random()<this.params.particleEmitChance){this.particles.push(new Particle(x,y,color));}}
+            updateParticles(){for(let i=this.particles.length-1;i>=0;i--){this.particles[i].update();if(this.particles[i].lifespan<=0){this.particles.splice(i,1);}}}
+            drawParticles(mainCtx){this.particles.forEach(p=>p.draw(mainCtx));}
+            drawSeed(mainCtx){if(!mainCtx)return;mainCtx.save();mainCtx.fillStyle=this.params.seedColor;mainCtx.shadowColor=this.params.seedGlowColor;mainCtx.shadowBlur=this.params.glowBlur/2+3;mainCtx.beginPath();mainCtx.arc(this.startX,this.startY,this.params.seedRadius,0,Math.PI*2);mainCtx.fill();mainCtx.restore();}
+            growStep() { 
+                if (this.isFullyGrown || !this.treeCtx) return false;
+                this.treeCtx.shadowBlur = this.params.glowBlur;
+                for (let i=0; i<SEGMENTS_PER_FRAME && this.drawingProgress<this.fullPathString.length; i++,this.drawingProgress++) {
+                    const command = this.fullPathString[this.drawingProgress];
+                    const currentLineWidth = Math.max(0.2, this.turtle.lineWidth / (this.turtle.depth * 0.5 + 1)); 
+                    this.treeCtx.lineWidth = currentLineWidth;
+                    this.treeCtx.strokeStyle = this.params.branchColor;
+                    this.treeCtx.shadowColor = hsla(this.params.branchColor, 0.6);
+                    this.treeCtx.beginPath();
+                    switch (command) {
+                        case 'F': const nX=this.turtle.x+this.turtle.length*Math.cos(this.turtle.angle*Math.PI/180); const nY=this.turtle.y+this.turtle.length*Math.sin(this.turtle.angle*Math.PI/180); this.treeCtx.moveTo(this.turtle.x,this.turtle.y); this.treeCtx.lineTo(nX,nY); this.turtle.x=nX; this.turtle.y=nY; this.treeCtx.stroke(); this.emitParticle(this.turtle.x,this.turtle.y,this.params.branchColor); break;
+                        case 'L': this.treeCtx.shadowColor=hsla(this.params.leafColor,0.7); this.treeCtx.arc(this.turtle.x,this.turtle.y,Math.max(0.8,currentLineWidth*1.5+1),0,Math.PI*2); this.treeCtx.fillStyle=this.params.leafColor; this.treeCtx.fill(); this.emitParticle(this.turtle.x,this.turtle.y,this.params.leafColor); break;
+                        case '+':this.turtle.angle+=this.params.angle;break; case '-':this.turtle.angle-=this.params.angle;break;
+                        case '[':this.stack.push({...this.turtle});this.turtle.length*=this.params.lengthDecrementFactor;this.turtle.depth++;break;
+                        case ']':if(this.stack.length>0)this.turtle=this.stack.pop();break;
+                        case 'X': break; // X does nothing visually
+                    }
+                }
+                this.treeCtx.shadowBlur=0; this.treeCtx.shadowColor='transparent';
+                if(this.drawingProgress>=this.fullPathString.length){this.isFullyGrown=true;return false;} return true;
+            }
+            drawToMainCanvas(mainCtx){if(mainCtx&&this.treeCanvas){mainCtx.drawImage(this.treeCanvas,0,0);}}
+        }
+        
+        function drawSoil(mainCtx) { 
+            if (!mainCtx) return;
+            mainCtx.save();
+            mainCtx.fillStyle = SOIL_COLOR;
+            mainCtx.shadowColor = SOIL_GLOW_COLOR;
+            mainCtx.shadowBlur = 8; 
+            mainCtx.fillRect(0, canvas.height - SOIL_HEIGHT, canvas.width, SOIL_HEIGHT);
+            mainCtx.restore();
+        }
+
+        function mainAnimationLoop() { 
+            if (!ctx) { if (globalAnimationFrameId) cancelAnimationFrame(globalAnimationFrameId); return; }
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.25)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            drawSoil(ctx); 
+            let anyTreeStillGrowing = false;
+            trees.forEach(tree => {
+                tree.drawSeed(ctx); 
+                if (!tree.isFullyGrown) { if(tree.growStep()) { anyTreeStillGrowing = true; }}
+                tree.drawToMainCanvas(ctx); 
+                tree.updateParticles(); tree.drawParticles(ctx);
+            });
+            ctx.strokeStyle = '#00ff00'; ctx.lineWidth = 1; ctx.strokeRect(0, 0, canvas.width, canvas.height);
+            if (trees.length === 0 && initCheck) { 
+                 ctx.font = "14px 'Courier New', Courier, monospace"; ctx.fillStyle = '#00aa00'; ctx.textAlign = 'center';
+                 ctx.fillText("The aether-soil awaits. Plant a seed.", canvas.width / 2, (canvas.height - SOIL_HEIGHT) / 2);
+            }
+            const anyParticlesExist = trees.some(tree => tree.particles.length > 0);
+            if(anyTreeStillGrowing || trees.length > 0 || anyParticlesExist) { globalAnimationFrameId = requestAnimationFrame(mainAnimationLoop); }
+            else { globalAnimationFrameId = null; }
+        }
+
+        function startMainAnimationLoop() { if (!globalAnimationFrameId && ctx) { mainAnimationLoop(); }}
+        
+        function resetTheGarden() {
+            console.log("Resetting the garden!");
+            trees = []; 
+            if (globalAnimationFrameId) { 
+                // Loop will stop itself if no trees/particles
+            } else { 
+                redrawGardenStatic();
+            }
+            if (!globalAnimationFrameId) { 
+                redrawGardenStatic();
+            }
+        }
+
+        if (initCheck && plantButton && seedInput && resetButton) { 
+            plantButton.addEventListener('click', () => {
+                const intent = seedInput.value.trim();
+                if (intent) {
+                    if (trees.length >= MAX_TREES) { trees.shift(); }
+                    const lSystemParams = processIntentForLSystem(intent, trees.length); 
+                    const xSpreadFactor = Math.min(0.9, 0.2 + (trees.length * 0.05)); 
+                    const treeX = canvas.width / 2 + (Math.random() - 0.5) * (canvas.width * xSpreadFactor); 
+                    const treeY = canvas.height - SOIL_HEIGHT + (lSystemParams.seedRadius); 
+                    trees.push(new LSystemTree(treeX, treeY, lSystemParams));
+                    startMainAnimationLoop();
+                } else { /* ... empty intent handling ... */ }
+            });
+            resetButton.addEventListener('click', resetTheGarden); 
+            console.log("Expansive L-System controls initialized.");
+        } else { console.error("CRITICAL Expansive L-System: Control(s) or init failed."); }
+        
+        function redrawGardenStatic() { 
+            if (!ctx) return;
+            ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            drawSoil(ctx); 
+            if (trees.length === 0 && initCheck) { 
+                 ctx.font = "14px 'Courier New', Courier, monospace"; ctx.fillStyle = '#00aa00'; ctx.textAlign = 'center';
+                 ctx.fillText("The aether-soil awaits. Plant a seed.", canvas.width / 2, (canvas.height - SOIL_HEIGHT) / 2);
+            } else {
+                trees.forEach(tree => { tree.drawSeed(ctx); tree.drawToMainCanvas(ctx); tree.drawParticles(ctx); });
+            }
+            ctx.strokeStyle = '#00ff00'; ctx.lineWidth = 1; ctx.strokeRect(0, 0, canvas.width, canvas.height);
+        }
+
+        if (initCheck) { redrawGardenStatic(); console.log("Expansive L-System Garden initialized."); }
+        else { console.error("Initial Expansive L-System checks FAILED."); }
+    </script>
+
+</body>
+</html>

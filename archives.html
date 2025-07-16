@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Archives</title>
+    <style>
+        body {
+            background-image: url('background.gif');
+            color: #00ff00;
+            font-family: "Courier New", Courier, monospace;
+            text-align: center;
+        }
+        .main-content {
+            background-color: rgba(0, 0, 0, 0.75);
+            width: 480px;
+            margin: 20px auto;
+            padding: 15px;
+            border: 3px inset #888;
+            box-shadow: 0 0 15px #000;
+        }
+        /* [MODIFIED] Style for the home link */
+        .home-link {
+            display: block;
+            text-align: center; /* Changed from left to center */
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-decoration: none;
+            color: #00ff00;
+        }
+        .home-link:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px #ff00ff, 0 0 10px #00ff00;
+            white-space: nowrap;
+        }
+        .blinking-text {
+            animation: blinker 1s linear infinite;
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+        /* Style for the new PNG image */
+        #houseofcleb-png {
+            display: block;
+            margin: 15px auto 0;
+            max-width: 40%; /* Ensure it fits nicely */
+        }
+        
+        .link-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 30px 0;
+        }
+        .link-list li {
+            margin: 15px 0;
+        }
+        .link-list a {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            text-shadow: 0 0 3px #000;
+            transition: all 0.2s;
+        }
+        .link-list a:hover {
+            text-shadow: 0 0 8px #fff, 0 0 5px #fff;
+        }
+
+        /* [NEW] Colors for the archive links */
+        #link-software { color: #ff00ff; } /* Magenta */
+        #link-gallery { color: #00ff00; }  /* Bright Green */
+        #link-links { color: #ffff00; }    /* Yellow */
+
+
+        .footer-content {
+            margin-top: 40px;
+            font-size: 12px;
+        }
+        .donate-section {
+            margin-top: 25px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-content">
+        <!-- Home link -->
+        <a href="index.html" class="home-link">[ Home ]</a>
+
+        <img id="houseofcleb-png" src="houseofcleb.png" alt="House of Cleb">
+        <h1><span class="blinking-text">::</span> The Archives <span class="blinking-text">::</span></h1>
+        <img src="divider.gif" alt="divider" width="400">
+
+        <!-- The link list for the archives page -->
+        <ul class="link-list">
+            <li><a id="link-software" href="software.html">Software</a></li>
+            <li><a id="link-gallery" href="gallery.html">Gallery</a></li>
+            <li><a id="link-links" href="link.html">Links</a></li>
+        </ul>
+
+        <img src="divider.gif" alt="divider" width="400">
+
+    </div>
+
+    <div class="footer-content">
+        <img src="construction.gif" alt="Under Construction"><br>
+        <img src="eye.gif" alt="all seeing eye" height="40">
+    </div>
+
+    <div class="donate-section">
+        <img src="donate.gif" alt="Donate">
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes on a Non-System</title>
+    <style>
+        body {
+            background-image: url('../background.gif');
+            color: #00ff00;
+            font-family: "Courier New", Courier, monospace;
+            text-align: center;
+        }
+        .main-content {
+            background-color: rgba(0, 0, 0, 0.75);
+            width: 480px;
+            margin: 20px auto;
+            padding: 15px;
+            border: 3px inset #888;
+            box-shadow: 0 0 15px #000;
+        }
+        /* Style for the home/next links */
+        .nav-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-decoration: none;
+            color: #00ff00;
+        }
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px #ff00ff, 0 0 10px #00ff00;
+            white-space: nowrap;
+        }
+        .blinking-text {
+            animation: blinker 1s linear infinite;
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+        /* [NEW] Style for the notes.png image */
+        #notes-png {
+            display: block;
+            margin: 15px auto;
+            max-width: 60%;
+        }
+
+        /* [NEW] Style for the red text */
+        .red-heading {
+            color: #ff0000;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 25px 0;
+            text-shadow: 0 0 5px #000;
+        }
+
+        /* [NEW] Style for the paragraph content */
+        .prose-content {
+            text-align: left;
+            padding: 0 15px;
+            line-height: 1.6;
+        }
+        .prose-content p {
+            margin-bottom: 1em;
+        }
+
+        .footer-content {
+            margin-top: 40px;
+            font-size: 12px;
+        }
+        .donate-section {
+            margin-top: 25px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-content">
+        <!-- [NEW] Home link (path is ../ to go up one directory) -->
+        <a href="../index.html" class="nav-link">[ HOME ]</a>
+
+        <!-- [NEW] Page-specific image -->
+        <img id="notes-png" src="../notes.png" alt="Notes">
+        
+        <!-- [NEW] Page-specific title -->
+        <h1><span class="blinking-text">::</span> Notes on a Non-System <span class="blinking-text">::</span></h1>
+        
+        <!-- [NEW] Red heading -->
+        <p class="red-heading">You've Always Known</p>
+
+        <!-- [NEW] Paragraph content -->
+        <div class="prose-content">
+            <p>So, you've found the frequency. The crackle beneath their broadcast.</p>
+            <p>Nothing here is real — except what works.</p>
+            <p>This isn't a place of answers handed down. No dusty tomes, no robed masters demanding fealty.</p>
+            <p>It's a resonance chamber. For the whispers that say the script can be changed. That the walls listen.</p>
+            <p>We chart the tremors here. The moments the Veil THINS. How a focused will, a desperate scrawl, a dance on the edge of reason... can send ripples.</p>
+            <p>Not supplication. INTERFERENCE.</p>
+            <p>A thumbprint on the wet clay of what IS.</p>
+            <p>Listen. Watch. Experiment. The patterns are here. If you dare to connect them.</p>
+            <p>But be warned: some doors, once opened, don't quite close the same way.</p>
+        </div>
+        
+        <!-- [NEW] Next link -->
+        <a href="notes2.html" class="nav-link" style="margin-top: 30px;">[ NEXT ]</a>
+
+    </div>
+
+    <div class="footer-content">
+        <img src="../construction.gif" alt="Under Construction"><br>
+        <img src="../eye.gif" alt="all seeing eye" height="40">
+    </div>
+
+    <div class="donate-section">
+        <img src="../donate.gif" alt="Donate">
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>House of Cleb</title>
+    <style>
+        body {
+            background-image: url('background.gif');
+            color: #00ff00;
+            font-family: "Courier New", Courier, monospace;
+            text-align: center;
+        }
+        .main-content {
+            background-color: rgba(0, 0, 0, 0.75);
+            width: 480px;
+            margin: 20px auto;
+            padding: 15px;
+            border: 3px inset #888;
+            box-shadow: 0 0 15px #000;
+        }
+        h1 {
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px #ff00ff, 0 0 10px #00ff00;
+            white-space: nowrap;
+        }
+        .blinking-text {
+            animation: blinker 1s linear infinite;
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+        #hello-gif {
+            height: 200px;
+        }
+        /* Style for the new PNG image */
+        #houseofcleb-gif {
+            display: block;
+            margin: 15px auto 0;
+            max-width: 40%; /* Ensure it fits nicely */
+        }
+        
+        .link-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 30px 0;
+        }
+        .link-list li {
+            margin: 15px 0;
+        }
+        .link-list a {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            text-shadow: 0 0 3px #000;
+            transition: all 0.2s;
+        }
+        .link-list a:hover {
+            text-shadow: 0 0 8px #fff, 0 0 5px #fff;
+        }
+
+        /* Individual colors for each link remain distinct */
+        #link-sigilarium { color: #00ffff; } /* Cyan */
+        #link-archives { color: #ff00ff; }    /* Magenta */
+        #link-manifesto { color: #ff9900; }    /* Orange */
+        #link-github { color: #ffff00; }      /* Yellow */
+
+        .footer-content {
+            margin-top: 40px;
+            font-size: 12px;
+        }
+        .donate-section {
+            margin-top: 25px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-content">
+        <!-- GIF is hello.gif -->
+        <img id="hello-gif" src="hello.gif" alt="hello">
+        
+        <!-- houseofcleb.gif added -->
+        <img id="houseofcleb-gif" src="houseofcleb.gif" alt="House of Cleb">
+        
+        <!-- Title changed -->
+        <h1><span class="blinking-text">::</span> HOUSE OF CLEB <span class="blinking-text">::</span></h1>
+        
+        <img src="divider.gif" alt="divider" width="400">
+
+        <ul class="link-list">
+            <li><a id="link-sigilarium" href="sigilarium.html">Enter the Sigilarium</a></li>
+            <li><a id="link-archives" href="archives.html">The Archives</a></li>
+            <!-- [MODIFIED] Link text, target, and added a confirmation pop-up -->
+            <li><a id="link-manifesto" href="notes/index.html" onclick="return confirm('The Architect of these pages is Still Drunk (This is a WIP)');">Notes on a Non-System</a></li>
+            <li><a id="link-github" href="https://github.com/Clebmb" target="_blank">Github</a></li>
+        </ul>
+
+        <img src="divider.gif" alt="divider" width="400">
+
+    </div>
+
+    <div class="footer-content">
+        <img src="construction.gif" alt="Under Construction"><br>
+        <img src="eye.gif" alt="all seeing eye" height="40">
+    </div>
+
+    <div class="donate-section">
+        <img src="donate.gif" alt="Donate">
+    </div>
+
+</body>
+</html>

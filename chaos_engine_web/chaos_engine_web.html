@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chaos Engine - Web Version</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="main-content">
+        <!-- ADDED: Chaos Engine GIF -->
+        <img src="chaosengine.gif" alt="Chaos Engine" id="chaos-engine-logo-gif">
+
+        <div class="header-bar">
+            <span id="quantum-seed-status">Quantum Seed: [Initializing...]</span>
+            |
+            <span id="oracle-value">Oracle: ---</span>
+            <button id="oracle-help-btn" title="Oracle Help">?</button>
+        </div>
+
+        <canvas id="fractal-canvas"></canvas>
+
+        <img src="divider.gif" alt="divider" class="divider-img">
+
+        <div class="controls-grid">
+            <!-- Master & Sigil Column -->
+            <div class="control-column">
+                <div class="control-group">
+                    <h3>Master & Sigil</h3>
+                    <input type="text" id="intent-input" placeholder="Write Your Intent Here...">
+                    <button id="generate-btn">Generate</button>
+                    <select id="fractal-type-select">
+                        <option value="Mandelbrot">Mandelbrot</option>
+                        <option value="Julia">Julia</option>
+                        <option value="BurningShip">Burning Ship</option>
+                    </select>
+                    <div id="julia-params-widget" style="display:none;">
+                        C: <input type="text" id="julia-real" value="-0.7" size="5">
+                        <input type="text" id="julia-imag" value="0.27015" size="5">
+                    </div>
+                    <div>
+                        Iter: <input type="number" id="max-iter-input" value="45" min="10" max="1000" size="4">
+                        <button id="apply-iter-btn">Set</button>
+                    </div>
+                    <div>
+                        <input type="file" id="import-sigil-input" accept="image/*" style="display: none;">
+                        <button id="import-sigil-btn">Import Sigil</button>
+                        <button id="remove-sigil-btn" disabled>Remove Sigil</button>
+                    </div>
+                     <div>
+                        Sigil Scale: <input type="number" id="sigil-scale-input" value="100" min="10" max="500" size="3" disabled>%
+                        <button id="apply-sigil-scale-btn" disabled>Set</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Column -->
+            <div class="control-column">
+                <div class="control-group">
+                    <h3>Audio</h3>
+                    <select id="music-track-select">
+                        <option value="track1.mp3">Track 1 (Predefined)</option>
+                        <option value="track2.mp3">Track 2 (Predefined)</option>
+                        <option value="track3.mp3">Track 3 (Predefined)</option>
+                        <!-- Uploaded track will be added here by JS -->
+                    </select>
+                    <input type="file" id="upload-music-input" accept="audio/*" style="display:none;">
+                    <button id="upload-music-btn">Upload (.mp3, .wav)</button>
+                    <button id="play-pause-music-btn">Play</button>
+                    Music Vol: <input type="range" id="music-volume-slider" min="0" max="100" value="70">
+                    <hr class="control-divider">
+                    Tone Freq: <input type="number" id="tone-freq-input" value="432" size="4"> Hz
+                    <button id="play-tone-btn">Play Tone</button>
+                    <button id="stop-tone-btn" disabled>Stop Tone</button>
+                    Tone Vol: <input type="range" id="tone-volume-slider" min="0" max="100" value="50">
+                </div>
+            </div>
+
+            <!-- Visual Effects Column -->
+            <div class="control-column">
+                 <div class="control-group">
+                    <h3>Visual Effects</h3>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" id="effect-strobe"> Strobe</label>
+                        <label><input type="checkbox" id="effect-psychedelic"> Psychedelic Colors</label>
+                        <label><input type="checkbox" id="effect-warp-bands"> Warp Bands</label>
+                        <label><input type="checkbox" id="effect-scan-lines"> Scan Lines</label>
+                        <label><input type="checkbox" id="effect-rgb-shift"> RGB Shift</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" id="effect-neon-edges"> Neon Edges</label>
+                        <label><input type="checkbox" id="effect-emboss"> Emboss</label>
+                        <label><input type="checkbox" id="effect-color-crush"> Color Crush</label>
+                        <label><input type="checkbox" id="effect-pixel-glitch"> Pixel Glitch</label>
+                        <label><input type="checkbox" id="effect-julia-morph" disabled> Julia Morph</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <img src="divider.gif" alt="divider" class="divider-img">
+
+        <div class="bottom-controls">
+            <label><input type="checkbox" id="animate-checkbox" checked> Animate</label>
+            <button id="save-fractal-btn">Save Fractal</button>
+        </div>
+
+    </div>
+
+    <div class="footer-content">
+        <img src="construction.gif" alt="Under Construction"><br>
+        <img src="eye.gif" alt="all seeing eye" height="40"><br>
+        <img src="donate.gif" alt="Donate">
+    </div>
+
+    <!-- JavaScript files -->
+    <script src="js/fractal.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>

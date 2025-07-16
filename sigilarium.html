@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Sigilarium</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
+    <style>
+        body { background-image: url('background.gif'); color: #00ff00; font-family: "Courier New", Courier, monospace; text-align: center; }
+        .main-content { background-color: rgba(0, 0, 0, 0.75); width: 480px; margin: 20px auto; padding: 15px; border: 3px inset #888; box-shadow: 0 0 15px #000; }
+        h1 { font-size: 22px; text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 0 5px #ff00ff, 0 0 10px #00ff00; white-space: nowrap; }
+        .blinking-text { animation: blinker 1s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
+        #orb-gif { height: 200px; }
+        #input-mode-switcher { margin-bottom: 10px; }
+        .input-container { display: flex; align-items: center; gap: 10px; margin: 5px 0 15px 0; }
+        #intent-input { flex-grow: 1; padding: 5px; background-color: #111; border: 2px solid #00ff00; color: #00ff00; font-family: inherit; }
+        .custom-file-upload { padding: 8px 16px; border: 2px outset #777; background-color: #333; color: #ff00ff; cursor: pointer; font-size: 16px; font-weight: bold; flex-shrink: 0; display: none; }
+        #generate-btn { padding: 8px 16px; border: 2px outset #777; background-color: #333; color: #ff00ff; cursor: pointer; font-size: 16px; font-weight: bold; flex-shrink: 0; }
+        #generate-btn:disabled { background-color: #222; color: #555; border-style: inset; }
+        #sigil-canvas { background-color: #000; border: 2px solid #555; box-shadow: 0 0 20px #00ff00; cursor: default; }
+        .controls-panel { border: 1px dotted #00ff00; padding: 15px; margin-top: 20px; text-align: left; }
+        .controls-panel label { display: block; margin: 10px 0; }
+        .controls-panel input[type="color"], .controls-panel select, .controls-panel input[type="number"] { vertical-align: middle; margin-left: 10px; }
+        .controls-panel input[type="number"] { width: 60px; background-color: #111; color: #00ff00; border: 1px solid #00ff00; }
+        .animation-section { margin-top: 15px; padding-top: 15px; border-top: 2px dashed #555; }
+        .animation-section label.disabled { color: #888; cursor: not-allowed; }
+        .param-control { display: none; margin-left: 20px; }
+        .save-section { margin-top: 15px; padding-top: 15px; border-top: 1px solid #555; text-align: center; }
+        .save-section button { padding: 8px 12px; border: 2px outset #777; background-color: #225522; color: #00ff00; cursor: pointer; font-size: 14px; margin: 0 5px; }
+        .save-section button:disabled { background-color: #444; color: #888; cursor: not-allowed; }
+        .footer-content { margin-top: 20px; font-size: 12px; }
+        .donate-section { margin-top: 25px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <img id="orb-gif" src="orb.gif" alt="mystic orb">
+        <h1><span class="blinking-text">::</span> Created by House of Cleb <span class="blinking-text">::</span></h1>
+        <img src="divider.gif" alt="divider" width="400">
+        <div id="input-mode-switcher">
+            <label><input type="radio" name="input-mode" value="text" checked> Text</label>
+            <label><input type="radio" name="input-mode" value="number"> Number</label>
+            <label><input type="radio" name="input-mode" value="draw"> Draw</label>
+            <label><input type="radio" name="input-mode" value="image"> Image</label>
+        </div>
+        <div class="input-container">
+            <input type="text" id="intent-input" placeholder="Enter statement of intent...">
+            <input type="file" id="image-upload" accept="image/*" style="display:none;">
+            <label for="image-upload" id="image-upload-label" class="custom-file-upload">Upload Image</label>
+            <button id="generate-btn">--[CHARGE]--</button>
+        </div>
+        <canvas id="sigil-canvas" width="300" height="300"></canvas>
+        <div class="controls-panel">
+            <label>Kaleidoscope: <input type="number" id="kaleidoscope-input" value="1" min="1" max="16"> segments</label>
+            <label>Grid Matrix: <select id="grid-selector"><option value="saturn" selected>3x3 Grid</option><option value="wheel">Witch's Wheel</option><option value="scatter">Chaotic Scatter</option></select></label>
+            <label>Sigil Color: <input type="color" id="color-picker" value="#00ff00"></label>
+            <label><input type="checkbox" id="glow-toggle" checked> Ætheric Glow</label>
+            <label><input type="checkbox" id="curve-toggle"> Curve Engine</label>
+            <label><input type="checkbox" id="x-symmetry-toggle"> X-Axis Symmetry</label>
+            <label><input type="checkbox" id="y-symmetry-toggle"> Y-Axis Symmetry</label>
+            <div class="animation-section">
+                <strong>Animation Effects:</strong>
+                <label id="segment-draw-label"><input type="checkbox" id="segment-draw-anim"> Segment Draw <span class="param-control" id="segment-speed-control">Speed: <input type="number" id="segment-speed-input" value="5" min="1"></span></label>
+                <hr style="border-color: #333; border-style: dotted;">
+                <label id="line-dash-label"><input type="checkbox" id="line-dash-anim"> Line Dash <span class="param-control" id="line-dash-speed-control">Flow Speed: <input type="number" id="line-dash-speed-input" value="5" min="1"></span></label>
+                <label id="rotate-cw-label"><input type="checkbox" id="rotate-cw-anim"> Rotate CW <span class="param-control" id="rotate-cw-speed-control">Speed: <input type="number" id="rotate-cw-speed-input" value="5" min="1"></span></label>
+                <label id="rotate-ccw-label"><input type="checkbox" id="rotate-ccw-anim"> Rotate CCW <span class="param-control" id="rotate-ccw-speed-control">Speed: <input type="number" id="rotate-ccw-speed-input" value="5" min="1"></span></label>
+                <label id="strobe-label"><input type="checkbox" id="strobe-anim"> Strobe <span class="param-control" id="strobe-speed-control">Speed(ms): <input type="number" id="strobe-speed-input" value="200" min="20"></span></label>
+                <label id="pulse-label"><input type="checkbox" id="pulse-anim"> Breathe/Pulse <span class="param-control" id="pulse-speed-control">Speed: <input type="number" id="pulse-speed-input" value="5" min="1"></span></label>
+                <label id="chroma-label"><input type="checkbox" id="chroma-anim"> Chroma Cycle <span class="param-control" id="chroma-speed-control">Speed: <input type="number" id="chroma-speed-input" value="5" min="1"></span></label>
+                <label id="jitter-label"><input type="checkbox" id="jitter-anim"> Jitter <span class="param-control" id="jitter-intensity-control">Intensity: <input type="number" id="jitter-intensity-input" value="2" min="1"></span></label>
+            </div>
+            <div class="save-section">
+                <button id="save-png-btn">Save as PNG</button>
+                <button id="save-gif-btn">Save as GIF</button>
+                <label><input type="checkbox" id="transparent-bg"> Transparent BG</label>
+            </div>
+        </div>
+    </div>
+    <div class="footer-content">
+        <marquee behavior="scroll" direction="left" scrollamount="4">** SYSTEMS PERFECTED. HOUSE OF CLEB © 1998 **</marquee><br>
+        <img src="construction.gif" alt="Under Construction"><br>
+        <img src="eye.gif" alt="all seeing eye" height="40">
+    </div>
+    <div class="donate-section">
+        <img src="donate.gif" alt="Donate">
+    </div>
+
+    <script>
+        const DOM={generateBtn:document.getElementById('generate-btn'),intentInput:document.getElementById('intent-input'),canvas:document.getElementById('sigil-canvas'),ctx:document.getElementById('sigil-canvas').getContext('2d'),colorPicker:document.getElementById('color-picker'),glowToggle:document.getElementById('glow-toggle'),curveToggle:document.getElementById('curve-toggle'),xSymmetryToggle:document.getElementById('x-symmetry-toggle'),ySymmetryToggle:document.getElementById('y-symmetry-toggle'),gridSelector:document.getElementById('grid-selector'),kaleidoscopeInput:document.getElementById('kaleidoscope-input'),transparentBg:document.getElementById('transparent-bg'),savePngBtn:document.getElementById('save-png-btn'),saveGifBtn:document.getElementById('save-gif-btn'),inputModes:document.querySelectorAll('input[name="input-mode"]'),imageUpload:document.getElementById('image-upload'),imageUploadLabel:document.getElementById('image-upload-label'),anim:{rotateCw:document.getElementById('rotate-cw-anim'),rotateCwSpeedControl:document.getElementById('rotate-cw-speed-control'),rotateCwSpeedInput:document.getElementById('rotate-cw-speed-input'),rotateCcw:document.getElementById('rotate-ccw-anim'),rotateCcwSpeedControl:document.getElementById('rotate-ccw-speed-control'),rotateCcwSpeedInput:document.getElementById('rotate-ccw-speed-input'),strobe:document.getElementById('strobe-anim'),strobeSpeedControl:document.getElementById('strobe-speed-control'),strobeSpeedInput:document.getElementById('strobe-speed-input'),pulse:document.getElementById('pulse-anim'),pulseSpeedControl:document.getElementById('pulse-speed-control'),pulseSpeedInput:document.getElementById('pulse-speed-input'),chroma:document.getElementById('chroma-anim'),chromaSpeedControl:document.getElementById('chroma-speed-control'),chromaSpeedInput:document.getElementById('chroma-speed-input'),jitter:document.getElementById('jitter-anim'),jitterIntensityControl:document.getElementById('jitter-intensity-control'),jitterIntensityInput:document.getElementById('jitter-intensity-input'),segmentDraw:document.getElementById('segment-draw-anim'),segmentSpeedControl:document.getElementById('segment-speed-control'),segmentSpeedInput:document.getElementById('segment-speed-input'),lineDash:document.getElementById('line-dash-anim'),lineDashSpeedControl:document.getElementById('line-dash-speed-control'),lineDashSpeedInput:document.getElementById('line-dash-speed-input')},animLabels:{segmentDraw:document.getElementById('segment-draw-label'),rotateCw:document.getElementById('rotate-cw-label'),rotateCcw:document.getElementById('rotate-ccw-label'),strobe:document.getElementById('strobe-label'),pulse:document.getElementById('pulse-label'),chroma:document.getElementById('chroma-label'),jitter:document.getElementById('jitter-label'),lineDash:document.getElementById('line-dash-label')}};
+        let chargeAnimationId, liveAnimationId, currentPathPoints=[], currentRotation=0, sigilTotalLength=0, isDrawing=false;
+        const letterGrid={'A':1,'J':1,'S':1,'B':2,'K':2,'T':2,'C':3,'L':3,'U':3,'D':4,'M':4,'W':4,'E':5,'N':5,'V':5,'F':6,'O':6,'X':6,'G':7,'P':7,'Y':7,'H':8,'Q':8,'Z':8,'I':9,'R':9};
+        const numberGrid={'1':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'0':5};
+        const margin=40, gridSystems={saturn:{1:{x:margin,y:margin},2:{x:150,y:margin},3:{x:300-margin,y:margin},4:{x:margin,y:150},5:{x:150,y:150},6:{x:300-margin,y:150},7:{x:margin,y:300-margin},8:{x:150,y:300-margin},9:{x:300-margin,y:300-margin}},wheel:(()=>{const p={},cX=150,cY=150,r=150-margin;for(let i=0;i<9;i++){const a=(i*(2*Math.PI/9))-(Math.PI/2);p[i+1]={x:cX+r*Math.cos(a),y:cY+r*Math.sin(a)};}return p;})(),scatter:()=>{const p={};for(let i=1;i<=9;i++){p[i]={x:margin+Math.random()*(300-2*margin),y:margin+Math.random()*(300-2*margin)};}return p;}};
+        function getCurrentInputMode(){return document.querySelector('input[name="input-mode"]:checked').value;}
+        function startSigilGeneration(isFromButton=false){if(chargeAnimationId)cancelAnimationFrame(chargeAnimationId);if(liveAnimationId)cancelAnimationFrame(liveAnimationId);const inputMode=getCurrentInputMode();if(inputMode==='text'||inputMode==='number'){const gridVal=DOM.gridSelector.value;const activeCoords=(gridVal==='scatter')?gridSystems.scatter():gridSystems[gridVal];let processedInput='';if(inputMode==='text'){let intent=DOM.intentInput.value.toUpperCase().replace(/[AEIOU\s]/g,'');processedInput=[...new Set(intent)].join('');}else{processedInput=DOM.intentInput.value.replace(/[^0-9]/g,'');}if(processedInput.length<2){if(isFromButton)alert(inputMode==='text'?"!! INTENT TOO WEAK. !!":"!! NEED MORE DIGITS. !!");DOM.ctx.clearRect(0,0,300,300);return;}currentPathPoints=[];const sourceGrid=inputMode==='text'?letterGrid:numberGrid;for(const char of processedInput){const gridNum=sourceGrid[char];if(gridNum)currentPathPoints.push(activeCoords[gridNum]);}}else if(inputMode==='draw'||inputMode==='image'){if(currentPathPoints.length<2){DOM.ctx.clearRect(0,0,300,300);return;}}sigilTotalLength=0;for(let i=0;i<currentPathPoints.length-1;i++)sigilTotalLength+=Math.hypot(currentPathPoints[i+1].x-currentPathPoints[i].x,currentPathPoints[i+1].y-currentPathPoints[i].y);animateCharging(currentPathPoints);}
+        function transformPoints(points,mX,mY,w,h){return points.map(p=>({x:mX?w-p.x:p.x,y:mY?h-p.y:p.y}));}
+        function _drawPathLogic(targetCtx,points,options){if(points.length<1)return;targetCtx.beginPath();if(options.curves&&points.length>1){const m=points.map((p,i)=>{const n=points[i+1]||p;return{x:(p.x+n.x)/2,y:(p.y+n.y)/2}});targetCtx.moveTo(points[0].x,points[0].y);targetCtx.lineTo(m[0].x,m[0].y);for(let i=1;i<points.length-1;i++){targetCtx.quadraticCurveTo(points[i].x,points[i].y,m[i].x,m[i].y)}if(points.length>1)targetCtx.lineTo(points[points.length-1].x,points[points.length-1].y)}else{targetCtx.moveTo(points[0].x,points[0].y);for(let i=1;i<points.length;i++)targetCtx.lineTo(points[i].x,points[i].y)}targetCtx.stroke();if(points.length>1){targetCtx.beginPath();targetCtx.arc(points[0].x,points[0].y,5,0,2*Math.PI);targetCtx.fill();targetCtx.beginPath();targetCtx.arc(points[points.length-1].x,points[points.length-1].y,5,0,2*Math.PI);targetCtx.fill();}}
+        function drawSigil(targetCtx,points,options,timestamp=0,isForGif=false){targetCtx.save();const{width,height}=targetCtx.canvas;targetCtx.globalAlpha=options.alpha;const color=options.anim.chroma?`hsl(${(timestamp*(options.anim.chromaSpeed*0.02))%360},100%,50%)`:options.color;targetCtx.strokeStyle=color;targetCtx.fillStyle=color;targetCtx.lineWidth=2.5;targetCtx.shadowColor=options.glow?color:'transparent';targetCtx.shadowBlur=options.glow?25:0;if(options.anim.lineDash){targetCtx.setLineDash([15,10]);targetCtx.lineDashOffset=-(timestamp*(options.anim.lineDashSpeed*0.01));}else{targetCtx.setLineDash([]);}
+        let pointsToDraw=points;
+        if(options.anim.segmentDraw){const duration=Math.max(100,10000/(options.anim.segmentSpeed||1));const progress=(timestamp%duration)/duration;let drawnLength=sigilTotalLength*progress;let sI=0,lS=drawnLength;while(sI<points.length-1){const sL=Math.hypot(points[sI+1].x-points[sI].x,points[sI+1].y-points[sI].y);if(lS<=sL)break;lS-=sL;sI++}const animatedPoints=points.slice(0,sI+1);if(sI<points.length-1){const t=lS/Math.hypot(points[sI+1].x-points[sI].x,points[sI+1].y-points[sI].y);animatedPoints.push({x:points[sI].x+t*(points[sI+1].x-points[sI].x),y:points[sI].y+t*(points[sI+1].y-points[sI].y)})}pointsToDraw=animatedPoints;}
+        const paths=[pointsToDraw];
+        if(options.symX)paths.push(transformPoints(pointsToDraw,true,false,width,height));if(options.symY)paths.push(transformPoints(pointsToDraw,false,true,width,height));if(options.symX&&options.symY)paths.push(transformPoints(pointsToDraw,true,true,width,height));
+        targetCtx.translate(width/2,height/2);if(options.anim.pulse){const baseScale=0.95;targetCtx.scale(baseScale,baseScale);const scale=1+0.05*Math.sin(timestamp*(options.anim.pulseSpeed*0.001));targetCtx.scale(scale,scale);}if(options.anim.jitter){const intensity=options.anim.jitterIntensity;let jitterX=0,jitterY=0;if(isForGif){jitterX=Math.sin(timestamp*0.1)*intensity*0.5;jitterY=Math.cos(timestamp*0.15)*intensity*0.5;}else{jitterX=(Math.random()-0.5)*intensity;jitterY=(Math.random()-0.5)*intensity;}targetCtx.translate(jitterX,jitterY);}targetCtx.rotate(options.rotation);targetCtx.translate(-width/2,-height/2);
+        const segments=options.kaleidoscope,angleIncrement=(2*Math.PI)/segments;
+        for(let i=0;i<segments;i++){targetCtx.save();targetCtx.translate(width/2,height/2);targetCtx.rotate(angleIncrement*i);targetCtx.translate(-width/2,-height/2);paths.forEach(path=>_drawPathLogic(targetCtx,path,options));targetCtx.restore();}targetCtx.restore();}
+        function getCurrentOptions(){return{color:DOM.colorPicker.value,glow:DOM.glowToggle.checked,curves:DOM.curveToggle.checked,symX:DOM.xSymmetryToggle.checked,symY:DOM.ySymmetryToggle.checked,kaleidoscope:parseInt(DOM.kaleidoscopeInput.value)||1,rotation:0,alpha:1,anim:{rotateCw:DOM.anim.rotateCw.checked,rotateCwSpeed:parseInt(DOM.anim.rotateCwSpeedInput.value)||5,rotateCcw:DOM.anim.rotateCcw.checked,rotateCcwSpeed:parseInt(DOM.anim.rotateCcwSpeedInput.value)||5,strobe:DOM.anim.strobe.checked,strobeSpeed:parseInt(DOM.anim.strobeSpeedInput.value)||200,pulse:DOM.anim.pulse.checked,pulseSpeed:parseInt(DOM.anim.pulseSpeedInput.value)||5,chroma:DOM.anim.chroma.checked,chromaSpeed:parseInt(DOM.anim.chromaSpeedInput.value)||5,jitter:DOM.anim.jitter.checked,jitterIntensity:parseInt(DOM.anim.jitterIntensityInput.value)||2,segmentDraw:DOM.anim.segmentDraw.checked,segmentSpeed:parseInt(DOM.anim.segmentSpeedInput.value)||5,lineDash:DOM.anim.lineDash.checked,lineDashSpeed:parseInt(DOM.anim.lineDashSpeedInput.value)||5}};}
+        function animateCharging(points){let dL=0;const speed=sigilTotalLength/100;function dF(){if(sigilTotalLength===0){drawSigil(DOM.ctx,points,getCurrentOptions());if(Object.values(getCurrentOptions().anim).some(v=>v===true))startLiveAnimation();return}DOM.ctx.clearRect(0,0,300,300);const cO=getCurrentOptions();let sI=0,lS=dL;while(sI<points.length-1){const sL=Math.hypot(points[sI+1].x-points[sI].x,points[sI+1].y-points[sI].y);if(lS<=sL)break;lS-=sL;sI++}const aP=points.slice(0,sI+1);if(sI<points.length-1){const t=lS/Math.hypot(points[sI+1].x-points[sI].x,points[sI+1].y-points[sI].y);aP.push({x:points[sI].x+t*(points[sI+1].x-points[sI].x),y:points[sI].y+t*(points[sI+1].y-points[sI].y)})}drawSigil(DOM.ctx,aP,cO);dL+=speed;if(dL<sigilTotalLength){chargeAnimationId=requestAnimationFrame(dF)}else{drawSigil(DOM.ctx,points,cO);if(Object.values(getCurrentOptions().anim).some(v=>v===true))startLiveAnimation()}}dF();}
+        function startLiveAnimation(){function liveLoop(timestamp){DOM.canvas.width=DOM.canvas.width;const options=getCurrentOptions();if(options.anim.rotateCw)currentRotation+=(options.anim.rotateCwSpeed*0.002);else if(options.anim.rotateCcw)currentRotation-=(options.anim.rotateCcwSpeed*0.002);if(options.anim.strobe){const period=options.anim.strobeSpeed;options.alpha=(timestamp%period)<(period/2)?1:0;}options.rotation=currentRotation;drawSigil(DOM.ctx,currentPathPoints,options,timestamp,false);liveAnimationId=requestAnimationFrame(liveLoop);}liveAnimationId=requestAnimationFrame(liveLoop);}
+        function savePNG(){const tC=document.createElement('canvas');tC.width=300;tC.height=300;const tX=tC.getContext('2d'),opts=getCurrentOptions();if(!DOM.transparentBg.checked){tX.fillStyle='#000';tX.fillRect(0,0,300,300);}drawSigil(tX,currentPathPoints,opts);const l=document.createElement('a');l.download='sigil.png';l.href=tC.toDataURL('image/png');l.click();}
+        function saveGIF(){if(currentPathPoints.length<1)return;DOM.saveGifBtn.disabled=true;DOM.saveGifBtn.textContent="Rendering...";if(liveAnimationId)cancelAnimationFrame(liveAnimationId);const gif=new GIF({workers:2,quality:10,workerScript:'https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js'});const totalFrames=60;const delay=1000/30;const duration=totalFrames*delay;let frameCount=0;function renderFrame(){if(frameCount>=totalFrames){finalizeGif();return;}const options=getCurrentOptions();const timestamp=frameCount*delay;if(options.anim.rotateCw)options.rotation=(options.anim.rotateCwSpeed/5)*(2*Math.PI)*(timestamp/duration);else if(options.anim.rotateCcw)options.rotation=-(options.anim.rotateCcwSpeed/5)*(2*Math.PI)*(timestamp/duration);if(options.anim.strobe){const period=options.anim.strobeSpeed;options.alpha=(timestamp%period)<(period/2)?1:0;}
+        DOM.canvas.width=DOM.canvas.width;
+        if(!DOM.transparentBg.checked){DOM.ctx.fillStyle='#000';DOM.ctx.fillRect(0,0,300,300);}
+        drawSigil(DOM.ctx,currentPathPoints,options,timestamp,true);
+        gif.addFrame(DOM.ctx,{copy:true,delay:delay});
+        frameCount++;requestAnimationFrame(renderFrame);}
+        function finalizeGif(){gif.on('finished',function(blob){const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='sigil.gif';link.click();DOM.saveGifBtn.disabled=false;DOM.saveGifBtn.textContent="Save as GIF";if(Object.values(getCurrentOptions().anim).some(v=>v===true)){startLiveAnimation();}});gif.render();}
+        renderFrame();}
+        function handleInteraction(isFromButton=false){if(liveAnimationId)cancelAnimationFrame(liveAnimationId);startSigilGeneration(isFromButton);}
+        function getMousePos(canvas,evt){const rect=canvas.getBoundingClientRect();return{x:evt.clientX-rect.left,y:evt.clientY-rect.top};}
+        function updateInputMode(){const mode=getCurrentInputMode();DOM.intentInput.value='';currentPathPoints=[];DOM.ctx.clearRect(0,0,300,300);DOM.intentInput.style.display='flex';DOM.generateBtn.style.display='flex';DOM.imageUploadLabel.style.display='none';if(mode==='text'){DOM.intentInput.placeholder="Enter statement of intent...";DOM.generateBtn.disabled=false;DOM.canvas.style.cursor='default';DOM.gridSelector.disabled=false;}else if(mode==='number'){DOM.intentInput.placeholder="Enter sequence of numbers...";DOM.generateBtn.disabled=false;DOM.canvas.style.cursor='default';DOM.gridSelector.disabled=false;}else if(mode==='draw'){DOM.intentInput.placeholder="Draw on the canvas above...";DOM.generateBtn.disabled=true;DOM.canvas.style.cursor='crosshair';DOM.gridSelector.disabled=true;}else if(mode==='image'){DOM.intentInput.style.display='none';DOM.generateBtn.style.display='none';DOM.imageUploadLabel.style.display='flex';DOM.canvas.style.cursor='default';DOM.gridSelector.disabled=false;}}
+        function handleImageUpload(event){const file=event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{const img=new Image();img.onload=()=>{const tempCanvas=document.createElement('canvas');const size=100;tempCanvas.width=size;tempCanvas.height=size;const tempCtx=tempCanvas.getContext('2d');tempCtx.drawImage(img,0,0,size,size);const imageData=tempCtx.getImageData(0,0,size,size).data;let numberSequence='';const sampleCount=20;for(let i=0;i<sampleCount;i++){const x=Math.floor((i/sampleCount)*size);const y=Math.floor((i/sampleCount)*size);const index=(y*size+x)*4;const r=imageData[index],g=imageData[index+1],b=imageData[index+2];const brightness=(r+g+b)/3;const digit=Math.floor((brightness/255)*8)+1;numberSequence+=digit;}const gridVal=DOM.gridSelector.value;const activeCoords=(gridVal==='scatter')?gridSystems.scatter():gridSystems[gridVal];currentPathPoints=[];for(const digit of numberSequence){const gridNum=numberGrid[String(digit)];if(gridNum)currentPathPoints.push(activeCoords[gridNum]);}handleInteraction(false);};img.src=e.target.result;};reader.readAsDataURL(file);}
+        function toggleAnimControls(){const isSegmentDraw=DOM.anim.segmentDraw.checked;for(const key in DOM.animLabels){if(key!=='segmentDraw'){DOM.animLabels[key].classList.toggle('disabled',isSegmentDraw);const animCheckbox=DOM.anim[key.replace(/Label$/,'')];if(animCheckbox)animCheckbox.disabled=isSegmentDraw;if(isSegmentDraw&&animCheckbox)animCheckbox.checked=false;}}for(const key in DOM.anim){if(DOM.anim[key].id&&DOM.anim[key].id.includes('Control')){DOM.anim[key].style.display='none';}}if(!isSegmentDraw){for(const key in DOM.anim){if(DOM.anim[key].checked&&DOM.anim[key+'SpeedControl']){DOM.anim[key+'SpeedControl'].style.display='inline';}if(DOM.anim[key].checked&&DOM.anim[key+'IntensityControl']){DOM.anim[key+'IntensityControl'].style.display='inline';}}}else{DOM.anim.segmentSpeedControl.style.display='inline';}handleInteraction(false);}
+        DOM.generateBtn.addEventListener('click',()=>handleInteraction(true));DOM.savePngBtn.addEventListener('click',savePNG);DOM.saveGifBtn.addEventListener('click',saveGIF);
+        [DOM.intentInput,DOM.colorPicker,DOM.kaleidoscopeInput,DOM.gridSelector].forEach(el=>el.addEventListener('input',()=>handleInteraction(false)));
+        [DOM.xSymmetryToggle,DOM.ySymmetryToggle].forEach(el=>el.addEventListener('change',()=>handleInteraction(false)));
+        Object.values(DOM.anim).forEach(el=>{if(el&&el.tagName==='INPUT'&&el.type!=='checkbox')el.addEventListener('input',()=>handleInteraction(false))});
+        Object.values(DOM.anim).forEach(el=>{if(el&&el.type==='checkbox')el.addEventListener('change',()=>{if(el.id==='rotate-cw-anim'&&el.checked)DOM.anim.rotateCcw.checked=false;if(el.id==='rotate-ccw-anim'&&el.checked)DOM.anim.rotateCw.checked=false;toggleAnimControls();});});
+        DOM.inputModes.forEach(radio=>radio.addEventListener('change',updateInputMode));
+        DOM.canvas.addEventListener('mousedown',e=>{if(getCurrentInputMode()!=='draw')return;isDrawing=true;currentPathPoints=[];liveAnimationId&&cancelAnimationFrame(liveAnimationId);const pos=getMousePos(DOM.canvas,e);currentPathPoints.push(pos);});
+        DOM.canvas.addEventListener('mousemove',e=>{if(!isDrawing)return;DOM.ctx.clearRect(0,0,300,300);const pos=getMousePos(DOM.canvas,e);currentPathPoints.push(pos);DOM.ctx.beginPath();DOM.ctx.lineWidth=1;DOM.ctx.strokeStyle='#555';for(let i=0;i<currentPathPoints.length;i++){DOM.ctx.lineTo(currentPathPoints[i].x,currentPathPoints[i].y)}DOM.ctx.stroke();});
+        DOM.canvas.addEventListener('mouseup',()=>{if(getCurrentInputMode()!=='draw'||!isDrawing)return;isDrawing=false;handleInteraction(false);});
+        DOM.imageUpload.addEventListener('change',handleImageUpload);
+        DOM.intentInput.value="SYSTEMS PERFECTED";startSigilGeneration(true);toggleAnimControls();
+    </script>
+</body>
+</html>

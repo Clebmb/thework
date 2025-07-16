@@ -1,0 +1,195 @@
+body {
+    background-image: url('background.gif');
+    color: #00ff00;
+    font-family: "Courier New", Courier, monospace;
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+    font-size: 14px; /* Base font size */
+}
+
+/* ADDED: Style for the Chaos Engine logo GIF */
+#chaos-engine-logo-gif {
+    display: block; /* Important for margin auto to work for centering */
+    margin: 0 auto 15px auto; /* Top 0, Right Auto, Bottom 15px, Left Auto */
+    max-height: 100px; /* Adjust as needed, prevents it from being too large */
+}
+
+
+.main-content {
+    background-color: rgba(0, 0, 0, 0.85); /* Slightly more opaque */
+    max-width: 900px; /* Adjust as needed */
+    margin: 10px auto;
+    padding: 15px;
+    border: 3px inset #888;
+    box-shadow: 0 0 15px #000;
+}
+
+.header-bar {
+    background-color: rgba(10, 10, 10, 0.9);
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #00ff00;
+    text-align: center;
+    font-weight: bold;
+}
+
+#oracle-help-btn {
+    background-color: #333;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 0;
+    line-height: 18px;
+}
+#oracle-help-btn:hover {
+    background-color: #00ff00;
+    color: #000;
+}
+
+
+#fractal-canvas {
+    width: 100%;
+    /* height: 420px; Let JS control height via aspect ratio or fixed value if needed */
+    background-color: black;
+    border: 1px solid #00cc00;
+    display: block; 
+    margin: 0 auto 10px auto; 
+}
+
+.divider-img {
+    width: 95%;
+    max-width: 600px;
+    margin: 10px auto;
+    display: block;
+}
+
+.controls-grid {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-around;
+    gap: 10px; 
+    margin-bottom: 10px;
+}
+
+.control-column {
+    flex: 1; 
+    min-width: 250px; 
+    padding: 5px;
+    border: 1px dashed #555;
+}
+
+.control-group {
+    margin-bottom: 10px;
+}
+.control-group h3 {
+    font-size: 16px;
+    color: #ff9900;
+    text-shadow: 0 0 3px #000;
+    margin-top: 0;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #555;
+    padding-bottom: 3px;
+}
+
+.control-group div, .control-group label {
+    margin-bottom: 5px; 
+}
+.checkbox-group {
+    display: flex;
+    flex-direction: column; 
+}
+.checkbox-group label {
+    margin-right: 10px;
+}
+
+
+input[type="text"],
+input[type="number"],
+select {
+    background-color: #111;
+    color: #00ff00;
+    border: 1px solid #009900;
+    padding: 3px 5px;
+    font-family: "Courier New", Courier, monospace;
+}
+input[type="text"]::placeholder {
+    color: #009900;
+    opacity: 0.7;
+}
+
+button {
+    background-color: #333;
+    color: #00ff00;
+    border: 2px outset #555;
+    padding: 4px 8px;
+    font-family: "Courier New", Courier, monospace;
+    cursor: pointer;
+    margin: 2px;
+}
+button:hover {
+    background-color: #444;
+    color: #ffff00;
+    border-style: inset;
+}
+button:disabled {
+    color: #555;
+    border-color: #444;
+    cursor: not-allowed;
+}
+
+input[type="range"] { 
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 8px;
+    background: #555;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+    vertical-align: middle;
+}
+input[type="range"]:hover {
+    opacity: 1;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #00ff00;
+    cursor: pointer;
+    border: 1px solid #000;
+}
+input[type="range"]::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #00ff00;
+    cursor: pointer;
+    border: 1px solid #000;
+}
+
+
+.control-divider {
+    border: none;
+    border-top: 1px dashed #444;
+    margin: 8px 0;
+}
+
+.bottom-controls {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #555;
+}
+
+.footer-content {
+    margin-top: 20px;
+    font-size: 12px;
+}
+.footer-content img {
+    margin: 5px 0;
+}
